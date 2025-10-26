@@ -31,7 +31,6 @@ function App() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newArticle = {
-      id: articles.length > 0 ? Math.max(...articles.map((a) => a.id)) + 1 : 1,
       title,
       content,
     };
@@ -65,7 +64,7 @@ function App() {
   const handleSearch = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/search/${searchKeyword}`
+        `http://localhost:3000/search/${searchKeyword}`,
       );
       const data = await response.json();
       setSearchResults(data);
@@ -104,7 +103,10 @@ function App() {
         </form>
         <div>
           {articles.map((article) => (
-            <div key={article.id}>
+            <div
+              key={article.id}
+              style={{ borderBottom: "1px solid white", padding: "1rem" }}
+            >
               <h3>ID: {article.id}</h3>
               <h3>Title: {article.title}</h3>
               <p>Content: {article.content}</p>
@@ -133,7 +135,10 @@ function App() {
           {searchResults.length === 0 && <p>No search results found.</p>}
           <div>
             {searchResults.map((article) => (
-              <div key={article.id}>
+              <div
+                key={article.id}
+                style={{ borderBottom: "1px solid white", padding: "1rem" }}
+              >
                 <h3>ID: {article.id}</h3>
                 <h3>Title: {article.title}</h3>
                 <p>Content: {article.content}</p>
